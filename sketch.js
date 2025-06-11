@@ -1,14 +1,12 @@
-let strokeColor; 
-let baseCircleColor;   // color for the white background circle
-let outerDotColor;     // color for the red dots outside
-let angleDots = 0;     // controls how much the red dots rotate
-let dotSizes = [];     // stores the size of each ring of dots
-let circles = [];      // an array to store all circle objects
+let circles = [];  // an array to store all circle objects
+let rippleCircles = []; // Store ripple effect objects triggered by user clicks
+
 
 function setup() {
   // Create the canvas using the size of the window
   createCanvas(windowWidth, windowHeight);
   angleMode(RADIANS); // use radians for angle measurements
+  background('#f4f1e3');   // Set the background to a light beige
 
   // Set center of the screen and circle size
   let centerX = windowWidth / 2;
@@ -29,7 +27,7 @@ function setup() {
 }
 
 function draw() {
-  background(20); // dark background
+  background('#f4f1e3'); // Changed background color to a soft beige tone to reflect traditional Chinese aesthetics
   for (let c of circles) {
     c.update(); // update animations
     c.draw();   // draw each circle
