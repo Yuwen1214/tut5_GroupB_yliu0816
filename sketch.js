@@ -174,19 +174,23 @@ class PatternCircle {
     arc(0, 0, 20, 25, PI * 0.45, PI * 0.75);
 
     // Draw two animated bezier curves.
+    let stamenCount = 17; // Number of ribs to draw
     let rotateAngle = frameCount * 0.02;
     push();
     rotate(rotateAngle);
 
-    stroke(255, 0, 100);
-    strokeWeight(5);
+    stroke(0, 0, 0, 60);
+    strokeWeight(2);
     noFill();
-    bezier(0, 0, this.r * 0.3, -this.r * 0.1, this.r * 0.5, this.r * 0.05, this.r * 0.65, this.r * 0.2);
+    for (let i = 0; i < stamenCount; i++) {
+      let angle = TWO_PI * i / stamenCount; // Angle for each rib
+      push();
+      rotate(angle);
 
-    stroke(255, 60, 160);
-    strokeWeight(3);
-    bezier(0, 0, this.r * 0.3, -this.r * 0.1, this.r * 0.5, this.r * 0.05, this.r * 0.65, this.r * 0.2);
-
+      // Bezier curve shaped like an umbrella rib
+      bezier(0, 0, this.r * 0.09, -this.r * 0.1, this.r * 0.2, this.r * 0.05, this.r * 0.6, this.r * 0.2);
+      pop(); // End rotation for current rib
+    }
     pop(); // end bezier rotation
     pop(); // end main drawing
   }
