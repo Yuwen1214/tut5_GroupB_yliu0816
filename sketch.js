@@ -8,22 +8,6 @@ function setup() {
   angleMode(RADIANS); // use radians for angle measurements
   background('#f4f1e3');   // Set the background to a light beige
 
-  // Set center of the screen and circle size
-  let centerX = windowWidth / 2;
-  let centerY = windowHeight / 2;
-  let radius = 200; 
-  let spacing = radius * 1.5; // distance between circle centers
-
-  // Add one circle in the center
-  circles.push(new PatternCircle(centerX, centerY, radius));
-
-  // Add 6 outer circles around the center
-  for (let i = 0; i < 6; i++) {
-    let angle = TWO_PI / 6 * i;
-    let x = centerX + cos(angle) * spacing;
-    let y = centerY + sin(angle) * spacing;
-    circles.push(new PatternCircle(x, y, radius));
-  }
 }
 
 function draw() {
@@ -41,16 +25,16 @@ function draw() {
 
 // Loop through all umbrella circles
 function mousePressed() {
-  for (let c of circles) {
-    if (dist(mouseX, mouseY, c.x, c.y) < c.r * 0.5) {
-      // Check if the mouse click is within the central area of a circle
-      rippleCircles.push(new RippleCircle(c.x, c.y));  
-      // If so, create a new ripple effect at that location
-    }
-  }
+  let radius = 200;
+  let x = mouseX;
+  let y = mouseY;
+
+  circles.push(new PatternCircle(x, y, radius));
+  rippleCircles.push(new RippleCircle(x, y));
+
 }
 
-// [My change] This class defines the expanding ripple circle (ink ripple effect)
+//  This class defines the expanding ripple circle (ink ripple effect)
 class RippleCircle {
   constructor(x, y) {
   // Set initial position (center of the ripple)
@@ -61,7 +45,7 @@ class RippleCircle {
     this.alpha = 40;       // Transparency of the ripple circle
   }
 
-  //[My change] Gradually increase the radius of the ripple
+  // Gradually increase the radius of the ripple
   update() {
     // If the current radius is less than the maximum allowed, increase the radius to create the expanding effect.
     if (this.radius < this.maxRadius) {
