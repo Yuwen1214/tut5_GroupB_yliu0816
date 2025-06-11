@@ -214,3 +214,8 @@ class PatternCircle {
     }
   }
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  background('#f4f1e3'); // Reset background after resizing
+}
