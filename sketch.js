@@ -28,16 +28,52 @@ function setup() {
 
 function draw() {
   background('#f4f1e3'); // Changed background color to a soft beige tone to reflect traditional Chinese aesthetics
+  // Loop through and render all ripple (ink spread) animations
+  for (let r of rippleCircles) {
+    r.update();            // update animations
+    r.draw();              // draw each circle
+  }
   for (let c of circles) {
     c.update(); // update animations
     c.draw();   // draw each circle
   }
 }
 
-// When mouse is clicked, change colors of all circles
+// Loop through all umbrella circles
 function mousePressed() {
   for (let c of circles) {
-    c.generateColors();
+    if (dist(mouseX, mouseY, c.x, c.y) < c.r * 0.5) {
+      // Check if the mouse click is within the central area of a circle
+      rippleCircles.push(new RippleCircle(c.x, c.y));  
+      // If so, create a new ripple effect at that location
+    }
+  }
+}
+
+// [My change] This class defines the expanding ripple circle (ink ripple effect)
+class RippleCircle {
+  constructor(x, y) {
+  // Set initial position (center of the ripple)
+    this.x = x;
+    this.y = y;
+    this.radius = 0;       // Initial radius 
+    this.maxRadius = 130;  // Maximum radius the ripple can reach
+    this.alpha = 40;       // Transparency of the ripple circle
+  }
+
+  //[My change] Gradually increase the radius of the ripple
+  update() {
+    // If the current radius is less than the maximum allowed, increase the radius to create the expanding effect.
+    if (this.radius < this.maxRadius) {
+      this.radius += 2;     // increase radius by 2 units per frame
+    }
+  }
+
+  // Display the expanding ripple circle
+  draw() {
+    fill(30, 30, 30, this.alpha);
+    noStroke();
+    ellipse(this.x, this.y, this.radius * 2);
   }
 }
 
@@ -58,11 +94,11 @@ class PatternCircle {
     this.baseCircleColor = color(random(200, 255), random(200, 255), random(200, 255));
     this.bgColor = color(random(150, 255), random(150, 255), random(150, 255));
     this.lineColor = color(random(200, 255), random(200, 255), random(0, 100));
-    this.outerDotColor = color(random(0, 255), random(0, 80), random(0, 255));
+    this.outerDotColor = color(random(0, 255), random(0, 80), random(0, 255), 120);
 
     this.dotSizes = [];
-    let maxRadius = this.r * 0.6;
-    for (let r = 10; r < maxRadius; r += 12) {
+    let maxRadius = this.r * 0.2; 
+    for (let r = 9; r < maxRadius; r += 10) {
       this.dotSizes.push(random(3, 6)); // choose size for each ring of dots
     }
   }
@@ -80,7 +116,7 @@ class PatternCircle {
     // Draw white background circle
     fill(this.baseCircleColor);
     noStroke();
-    circle(0, 0, this.r * 1.3);
+    circle(0, 0, this.r * 0.5);
 
     // Draw rotating red dots
     push();
@@ -92,13 +128,13 @@ class PatternCircle {
     fill(this.bgColor);
     stroke(this.strokeColor);
     strokeWeight(5);
-    circle(0, 0, this.r * 0.63);
+    circle(0, 0, this.r * 0.3);
 
     // Draw lines from center like spikes
     stroke(this.lineColor);
-    let spikes = 30;
-    let innerR = 20;
-    let outerR = 59;
+    let spikes = 20;
+    let innerR = 10;
+    let outerR = 30;
     for (let i = 0; i < spikes; i++) {
       strokeWeight(i % 2 === 0 ? 3 : 1.5); // thick and thin lines
       let angle1 = TWO_PI * i / spikes;
@@ -113,16 +149,16 @@ class PatternCircle {
     // Draw several small colored circles in the center
     noStroke();
     fill(255, 65, 70);
-    circle(0, 0, this.r * 0.23);
+    circle(0, 0, this.r * 0.03);
 
     fill(100, 130, 100);
-    circle(0, 0, this.r * 0.2);
+    circle(0, 0, this.r * 0.02);
 
     noFill();
     stroke(80, 255, 120, 60);
     strokeWeight(2.5);
     fill(180, 50, 80);
-    circle(0, 0, this.r * 0.15);
+    circle(0, 0, this.r * 0.1);
 
     fill(30, 180, 60);
     circle(0, 0, this.r * 0.07);
