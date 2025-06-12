@@ -88,9 +88,21 @@ My design attempts to capture the fusion of "stillness" and "movement" - the reg
 
 - I was inspired by Ivan Rudnicki's generative art project "Ink Chromagraph". This work simulates the effect of ink spreading in water. I like this natural smudge effect. I hope to use this gradient and diffused image to give people a very intuitive visual change, meeting the assignment's requirements for beauty and creativity.
 
-
+### Chinese traditional color
 - [Color inspiration reference](https://pixso.cn/designskills/traditional-chinese-color-matching/)
 
 
+## Improvements and Changes
+- Modified the group code pattern ratio
+
+- Modified the style of Bezier curve in group code
+
+- Added a new `RippleCircle` class to simulate traditional ink diffusion with layered effects  
+
+- Enabled rendering of multiple umbrellas by supporting repeated mouse clicks 
+
+- Implemented interactive color switching using the number keys 1/2/3/0, based on a traditional Chinese color palette  
+
+These changes significantly improve both the interactivity and the aesthetic expression of the visual system.
  
 
