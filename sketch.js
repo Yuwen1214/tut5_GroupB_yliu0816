@@ -53,6 +53,15 @@ class RippleCircle {
     this.maxRadius = 130;  // Maximum radius the ripple can reach
     this.alpha = 40;       // Transparency of the ripple circle
     this.inkDrops = [];    // Add ink drop effects
+    this.inkColors = [     // Add Chinese style colors
+      color(36, 39, 30),      // #24271E
+      color(211, 164, 136),   // #D3A488
+      color(59, 78, 61),      // #3B4E3D
+      color(175, 95, 84),     // #AF5F54
+      color(151, 8, 4),       // #970804
+      color(46, 47, 37),      // #2E2F25
+      color(29, 76, 80),      // #1D4C50
+    ];
   }
 
   // Gradually increase the radius of the ripple
@@ -71,7 +80,9 @@ class RippleCircle {
 
     // Draw ink drops
     for (let drop of this.inkDrops) {
-      fill(10, 10, 10, drop.alpha);
+      let c = drop.color;
+      c.setAlpha(drop.alpha); // source: https://p5js.org/reference/p5.Color/setAlpha/
+      fill(c);        // Added color attribute
       noStroke();
       ellipse(this.x + drop.offsetX, this.y + drop.offsetY, drop.r * 2);
     }
@@ -80,11 +91,13 @@ class RippleCircle {
 
   addInkDrop() {
     for (let i = 0; i < 6; i++) {
+      let c = random(this.inkColors); // Randomly select a color from the set color array
       this.inkDrops.push({
         offsetX: random(-this.radius / 2, this.radius / 2),
         offsetY: random(-this.radius / 2, this.radius / 2),
         r: random(6, 12),
-        alpha: 80
+        alpha: 80,
+        color: c  
       });
     }
   }
