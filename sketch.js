@@ -1,6 +1,6 @@
 let circles = [];  // an array to store all circle objects
 let rippleCircles = []; // Store ripple effect objects triggered by user clicks
-let inkMode = '1D4C50'; // Set an initial default color
+let inkMode = 'CDE8C0'; // Set an initial default color
 let randomChineseInkColor = null; // Store random color for key '0'
 
 
@@ -37,20 +37,20 @@ function mousePressed() {
 
 // Trigger ink drops on latest ripple circle
 function keyPressed() {
-  if (key === '1') inkMode = '1D4C50';    
-  else if (key === '2') inkMode = 'E68959'; 
+  if (key === '1') inkMode = 'CDE8C0';    
+  else if (key === '2') inkMode = 'EEC9D2'; 
   else if (key === '3') inkMode = 'CCD8D0'; 
   else if (key === '0') {
     inkMode = 'randomChinese';
     // Generate and store one random color on key '0'
     let chineseInkPalette = [
-      color(36, 39, 30),      // #24271E
-      color(211, 164, 136),   // #D3A488
-      color(59, 78, 61),      // #3B4E3D
-      color(175, 95, 84),     // #AF5F54
-      color(151, 8, 4),       // #970804
-      color(46, 47, 37),      // #2E2F25
-      color(29, 76, 80),      // #1D4C50
+      color(36, 39, 30, 50),      // #24271E
+      color(211, 164, 136, 50),   // #D3A488
+      color(59, 78, 61, 50),      // #3B4E3D
+      color(175, 95, 84, 50),     // #AF5F54
+      color(151, 8, 4, 50),       // #970804
+      color(46, 47, 37, 50),      // #2E2F25
+      color(29, 76, 80, 50),      // #1D4C50
     ];
     randomChineseInkColor = random(chineseInkPalette);
   }
@@ -113,13 +113,13 @@ class RippleCircle {
 
     // Define preset ink colors for key '1', '2', and '3'
     let palette = {
-      '1D4C50': color(29, 76, 80, 2),
-      'E68959': color(230, 137, 89, 10),
+      'CDE8C0': color(205, 232, 192, 60),
+      'EEC9D2': color(238, 201, 210, 30),
       'CCD8D0': color(204, 216, 208),
     };
 
     // If mode matches preset keys, pick from palette; otherwise use custom color
-    if (mode === '1D4C50' || mode === 'E68959' || mode === 'CCD8D0') {
+    if (mode === 'CDE8C0' || mode === 'EEC9D2' || mode === 'CCD8D0') {
       colorToUse = palette[mode];
     } else {
       colorToUse = mode;
