@@ -44,13 +44,13 @@ function keyPressed() {
     inkMode = 'randomChinese';
     // Generate and store one random color on key '0'
     let chineseInkPalette = [
-      color(36, 39, 30, 50),      // #24271E
-      color(211, 164, 136, 50),   // #D3A488
-      color(59, 78, 61, 50),      // #3B4E3D
-      color(175, 95, 84, 50),     // #AF5F54
-      color(151, 8, 4, 50),       // #970804
-      color(46, 47, 37, 50),      // #2E2F25
-      color(29, 76, 80, 50),      // #1D4C50
+      color(36, 39, 30),      // #24271E
+      color(211, 164, 136),   // #D3A488
+      color(59, 78, 61),      // #3B4E3D
+      color(175, 95, 84),     // #AF5F54
+      color(151, 8, 4),       // #970804
+      color(46, 47, 37),      // #2E2F25
+      color(29, 76, 80),      // #1D4C50
     ];
     randomChineseInkColor = random(chineseInkPalette);
   }
