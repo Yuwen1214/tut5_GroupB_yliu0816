@@ -42,7 +42,7 @@
 
 - Object-oriented structure is adopted to keep the code modular and maintainable
 
-- - Each ink drop now includes **five layered circles** with increasing size (`d`) and decreasing opacity (`alpha`) to simulate the gradient edge of real ink blots
+- Each ink drop now includes **five layered circles** with increasing size (`d`) and decreasing opacity (`alpha`) to simulate the gradient edge of real ink blots
 - Used `map()` function on loop index `k` to control each layer's diameter and alpha
 - This creates a softer, more realistic transition from dark center to light edge
 
