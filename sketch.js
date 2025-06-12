@@ -55,7 +55,7 @@ class RippleCircle {
 
   // Display the expanding ripple circle
   draw() {
-    fill(30, 30, 30, this.alpha);
+    fill(5, 7, 5, this.alpha);
     noStroke();
     ellipse(this.x, this.y, this.radius * 2);
   }
@@ -181,7 +181,7 @@ class PatternCircle {
 
   // Draw red dots in rings around the center
   drawOuterDots(x, y, r) {
-    let maxRadius = r * 0.6;
+    let maxRadius = r * 0.2;
     let ringIndex = 0;
     for (let i = 10; i < maxRadius; i += 12) {
       let numDots = floor(TWO_PI * i / 10); // how many dots on this ring
@@ -199,6 +199,7 @@ class PatternCircle {
   }
 }
 
+// Allow canvas to resize with browser window
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   background('#f4f1e3'); // Reset background after resizing
