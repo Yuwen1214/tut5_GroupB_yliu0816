@@ -65,15 +65,15 @@
 
 
 ## Compare with my teammates
- One person tried to make tail effects with the dots
+- One person tried to make tail effects with the dots
 
- Another focuses on a combination of expanding ripple effects and dynamic dots
+- Another focuses on a combination of expanding ripple effects and dynamic dots
 
- My version focuses on using Bézier curves and scale changes to enhance the visual dynamics and express the elegance of oil-paper umbrellas
+- My version focuses on using Bézier curves and scale changes to enhance the visual dynamics and express the elegance of oil-paper umbrellas
 
 
 ## Inspiration
-
+### Oil-Paper Umbrella
 ![Oil-Paper Umbrella](images/Oil%20PaperUmbrella%201.jpg)
 ![Oil-Paper Umbrella](images/Oil%20PaperUmbrella%202.jpg)
 
@@ -81,8 +81,10 @@
 
 My design attempts to capture the fusion of "stillness" and "movement" - the regularity of the structure and the natural diffusion of the ink echo each other.
 
-
+### Ink Chromatography by Ivan Rudnicki
 ![smudge effect](images/Ivan_Rudnicki.png)
+
+[reference](“Ink Chromatography” by Ivan Rudnickihttps://openprocessing.org/sketch/2613929License CreativeCommons Attribution NonCommercial ShareAlikehttps://creativecommons.org/licenses/by-nc-sa/3.0)
 
 - I was inspired by Ivan Rudnicki's generative art project "Ink Chromagraph". This work simulates the effect of ink spreading in water. I like this natural smudge effect. I hope to use this gradient and diffused image to give people a very intuitive visual change, meeting the assignment's requirements for beauty and creativity.
 
