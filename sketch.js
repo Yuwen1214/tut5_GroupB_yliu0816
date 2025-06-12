@@ -31,8 +31,17 @@ function mousePressed() {
 
   circles.push(new PatternCircle(x, y, radius));
   rippleCircles.push(new RippleCircle(x, y));
-
 }
+
+// Trigger ink drops on latest ripple circle
+function keyPressed() {
+  if (key === '1') {
+    if (rippleCircles.length > 0) {
+      rippleCircles[rippleCircles.length - 1].addInkDrop();
+    }
+  }
+}
+
 
 //  This class defines the expanding ripple circle (ink ripple effect)
 class RippleCircle {
@@ -43,6 +52,7 @@ class RippleCircle {
     this.radius = 0;       // Initial radius 
     this.maxRadius = 130;  // Maximum radius the ripple can reach
     this.alpha = 40;       // Transparency of the ripple circle
+    this.inkDrops = [];    // Add ink drop effects
   }
 
   // Gradually increase the radius of the ripple
@@ -58,6 +68,25 @@ class RippleCircle {
     fill(5, 7, 5, this.alpha);
     noStroke();
     ellipse(this.x, this.y, this.radius * 2);
+
+    // Draw ink drops
+    for (let drop of this.inkDrops) {
+      fill(10, 10, 10, drop.alpha);
+      noStroke();
+      ellipse(this.x + drop.offsetX, this.y + drop.offsetY, drop.r * 2);
+    }
+    
+  }
+
+  addInkDrop() {
+    for (let i = 0; i < 6; i++) {
+      this.inkDrops.push({
+        offsetX: random(-this.radius / 2, this.radius / 2),
+        offsetY: random(-this.radius / 2, this.radius / 2),
+        r: random(6, 12),
+        alpha: 80
+      });
+    }
   }
 }
 
