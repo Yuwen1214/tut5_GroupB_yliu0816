@@ -84,7 +84,7 @@ My design attempts to capture the fusion of "stillness" and "movement" - the reg
 ### Ink Chromatography by Ivan Rudnicki
 ![smudge effect](images/Ivan_Rudnicki.png)
 
-[reference](“Ink Chromatography” by Ivan Rudnickihttps://openprocessing.org/sketch/2613929License CreativeCommons Attribution NonCommercial ShareAlikehttps://creativecommons.org/licenses/by-nc-sa/3.0)
+[“Ink Chromatography” by Ivan Rudnicki](https://openprocessing.org/sketch/2613929)
 
 - I was inspired by Ivan Rudnicki's generative art project "Ink Chromagraph". This work simulates the effect of ink spreading in water. I like this natural smudge effect. I hope to use this gradient and diffused image to give people a very intuitive visual change, meeting the assignment's requirements for beauty and creativity.
 
