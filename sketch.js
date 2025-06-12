@@ -1,5 +1,7 @@
 let circles = [];  // an array to store all circle objects
 let rippleCircles = []; // Store ripple effect objects triggered by user clicks
+let inkMode = '1D4C50'; // Set an initial default color
+let randomChineseInkColor = null; // Store random color for key '0'
 
 
 function setup() {
@@ -35,25 +37,13 @@ function mousePressed() {
 
 // Trigger ink drops on latest ripple circle
 function keyPressed() {
-  if (key === '1') {
-    if (rippleCircles.length > 0) {
-      rippleCircles[rippleCircles.length - 1].addInkDrop();
-    }
-  }
-}
-
-
-//  This class defines the expanding ripple circle (ink ripple effect)
-class RippleCircle {
-  constructor(x, y) {
-  // Set initial position (center of the ripple)
-    this.x = x;
-    this.y = y;
-    this.radius = 0;       // Initial radius 
-    this.maxRadius = 130;  // Maximum radius the ripple can reach
-    this.alpha = 40;       // Transparency of the ripple circle
-    this.inkDrops = [];    // Add ink drop effects
-    this.inkColors = [     // Add Chinese style colors
+  if (key === '1') inkMode = '1D4C50';    
+  else if (key === '2') inkMode = 'E68959'; 
+  else if (key === '3') inkMode = 'CCD8D0'; 
+  else if (key === '0') {
+    inkMode = 'randomChinese';
+    // Generate and store one random color on key '0'
+    let chineseInkPalette = [
       color(36, 39, 30),      // #24271E
       color(211, 164, 136),   // #D3A488
       color(59, 78, 61),      // #3B4E3D
@@ -62,19 +52,48 @@ class RippleCircle {
       color(46, 47, 37),      // #2E2F25
       color(29, 76, 80),      // #1D4C50
     ];
+    randomChineseInkColor = random(chineseInkPalette);
+  }
+
+  if (rippleCircles.length > 0) {
+    let mode = inkMode;
+    if (inkMode === 'randomChinese') {
+      if (randomChineseInkColor) {
+        mode = randomChineseInkColor;
+      }
+    }
+    
+    rippleCircles[rippleCircles.length - 1].addInkDrop(mode);
+  }
+}
+
+
+// This class defines the expanding ripple circle (ink ripple effect)
+class RippleCircle {
+  constructor(x, y) {
+  // Set initial position (center of the ripple)
+    this.x = x;
+    this.y = y;
+    this.radius = 0;       // Initial radius 
+    this.maxRadius = 130;  // Maximum radius the ripple can reach
+    this.pg = createGraphics(windowWidth, windowHeight);  // Offscreen graphics layer for drawing ink effects
+    this.pg.clear();       //Clear the offscreen layer to start transparent
+    this.inkDrops = [];
   }
 
   // Gradually increase the radius of the ripple
   update() {
     // If the current radius is less than the maximum allowed, increase the radius to create the expanding effect.
     if (this.radius < this.maxRadius) {
-      this.radius += 2;     // increase radius by 2 units per frame
+      this.radius += 1.5;     // increase radius by 2 units per frame
     }
   }
 
   // Display the expanding ripple circle
   draw() {
-    fill(5, 7, 5, this.alpha);
+    image(this.pg, 0, 0);     // Draw the offscreen ink layer onto the main canvas
+
+    fill(5, 7, 5, 20);
     noStroke();
     ellipse(this.x, this.y, this.radius * 2);
 
@@ -82,22 +101,51 @@ class RippleCircle {
     for (let drop of this.inkDrops) {
       let c = drop.color;
       c.setAlpha(drop.alpha); // source: https://p5js.org/reference/p5.Color/setAlpha/
-      fill(c);        // Added color attribute
+      fill(c);                // Added color attribute
       noStroke();
       ellipse(this.x + drop.offsetX, this.y + drop.offsetY, drop.r * 2);
     }
     
   }
 
-  addInkDrop() {
-    for (let i = 0; i < 6; i++) {
-      let c = random(this.inkColors); // Randomly select a color from the set color array
+  addInkDrop(mode) {
+    let colorToUse;
+
+    // Define preset ink colors for key '1', '2', and '3'
+    let palette = {
+      '1D4C50': color(29, 76, 80, 2),
+      'E68959': color(230, 137, 89, 10),
+      'CCD8D0': color(204, 216, 208),
+    };
+
+    // If mode matches preset keys, pick from palette; otherwise use custom color
+    if (mode === '1D4C50' || mode === 'E68959' || mode === 'CCD8D0') {
+      colorToUse = palette[mode];
+    } else {
+      colorToUse = mode;
+    }
+
+    // Generate 7 ink drops with random offset and size
+    for (let i = 0; i < 7; i++) {
+      let angle = random(TWO_PI);
+      let offsetRadius = random(this.radius * 0.6, this.radius * 0.73);
+      let offsetX = cos(angle) * offsetRadius;
+      let offsetY = sin(angle) * offsetRadius;
+      let s = random(13, 15) * 2;
+  
+      // Each drop has 5 layers fading from center outward, creating ink wash effect
+      for (let j = 0; j < 5; j++) {
+        let a = map(j, 0, 4, 10, 1); 
+        this.pg.fill(red(colorToUse), green(colorToUse), blue(colorToUse), a);
+        this.pg.noStroke();
+        this.pg.ellipse(this.x + offsetX, this.y + offsetY, s);
+      }
       this.inkDrops.push({
-        offsetX: random(-this.radius / 2, this.radius / 2),
-        offsetY: random(-this.radius / 2, this.radius / 2),
-        r: random(6, 12),
-        alpha: 80,
-        color: c  
+        offsetX: offsetX,
+        offsetY: offsetY,
+        r: s / 2,          // Radius of the ink drop
+        alpha: 40,
+        color: colorToUse  // Ink color from preset palette or random
       });
     }
   }
@@ -125,7 +173,7 @@ class PatternCircle {
     this.dotSizes = [];
     let maxRadius = this.r * 0.2; 
     for (let r = 9; r < maxRadius; r += 10) {
-      this.dotSizes.push(random(3, 6)); // choose size for each ring of dots
+      this.dotSizes.push(random(3, 6));  // choose size for each ring of dots
     }
   }
 
@@ -137,7 +185,7 @@ class PatternCircle {
   // Draw everything in this circle
   draw() {
     push();
-    translate(this.x, this.y); // move to the circle’s center
+    translate(this.x, this.y);   // move to the circle’s center
 
     // Draw white background circle
     fill(this.baseCircleColor);
@@ -199,8 +247,8 @@ class PatternCircle {
     arc(0, 0, 24, 23, PI * 1.05, PI * 1.85);
     arc(0, 0, 20, 25, PI * 0.45, PI * 0.75);
 
-    // Draw two animated bezier curves.
-    let stamenCount = 17; // Number of ribs to draw
+    // Draw animated bezier curves.
+    let stamenCount = 17;  // Number of ribs to draw
     let rotateAngle = frameCount * 0.02;
     push();
     rotate(rotateAngle);
