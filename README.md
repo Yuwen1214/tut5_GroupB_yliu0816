@@ -42,6 +42,11 @@
 
 - Object-oriented structure is adopted to keep the code modular and maintainable
 
+- - Each ink drop now includes **five layered circles** with increasing size (`d`) and decreasing opacity (`alpha`) to simulate the gradient edge of real ink blots
+- Used `map()` function on loop index `k` to control each layer's diameter and alpha
+- This creates a softer, more realistic transition from dark center to light edge
+
+
 
 ## Visual Design Highlights
 
@@ -102,6 +107,8 @@ My design attempts to capture the fusion of "stillness" and "movement" - the reg
 - Enabled rendering of multiple umbrellas by supporting repeated mouse clicks 
 
 - Implemented interactive color switching using the number keys 1/2/3/0, based on a traditional Chinese color palette  
+
+- Enhanced ink drop simulation with **multi-layer blurred circles** to mimic natural ink diffusion more realistically
 
 These changes significantly improve both the interactivity and the aesthetic expression of the visual system.
  
