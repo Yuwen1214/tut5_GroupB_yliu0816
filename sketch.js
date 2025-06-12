@@ -244,8 +244,8 @@ class PatternCircle {
     stroke(30, 40, 50, 90);
     strokeWeight(2);
     noFill();
-    arc(0, 0, 24, 23, PI * 1.05, PI * 1.85);
-    arc(0, 0, 20, 25, PI * 0.45, PI * 0.75);
+    arc(0, 0, 14, 13, PI * 1.05, PI * 1.65);
+    arc(0, 0, 10, 15, PI * 0.45, PI * 0.75);
 
     // Draw animated bezier curves.
     let stamenCount = 17;  // Number of ribs to draw
@@ -253,7 +253,7 @@ class PatternCircle {
     push();
     rotate(rotateAngle);
 
-    stroke(0, 0, 0, 60);
+    stroke(0, 0, 0, 30);
     strokeWeight(2);
     noFill();
     for (let i = 0; i < stamenCount; i++) {
