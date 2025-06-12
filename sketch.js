@@ -113,8 +113,8 @@ class RippleCircle {
 
     // Define preset ink colors for key '1', '2', and '3'
     let palette = {
-      'CDE8C0': color(205, 232, 192, 60),
-      'EEC9D2': color(238, 201, 210, 30),
+      'CDE8C0': color(205, 232, 192, 80),
+      'EEC9D2': color(238, 201, 210, 60),
       'CCD8D0': color(204, 216, 208),
     };
 
@@ -128,25 +128,25 @@ class RippleCircle {
     // Generate 7 ink drops with random offset and size
     for (let i = 0; i < 7; i++) {
       let angle = random(TWO_PI);
-      let offsetRadius = random(this.radius * 0.6, this.radius * 0.73);
+      let offsetRadius = random(this.radius * 0.6, this.radius * 0.8);
       let offsetX = cos(angle) * offsetRadius;
       let offsetY = sin(angle) * offsetRadius;
-      let s = random(13, 15) * 2;
+      
   
-      // Each drop has 5 layers fading from center outward, creating ink wash effect
-      for (let j = 0; j < 5; j++) {
-        let a = map(j, 0, 4, 10, 1); 
-        this.pg.fill(red(colorToUse), green(colorToUse), blue(colorToUse), a);
+      // Simulate natural ink drop diffusion using multiple overlapping ellipses with varying opacity and size
+      for (let k = 0; k < 5; k++) {
+        let d = map(k, 0, 4, 8, 70);      // Gradually increase diameter of each layer
+        let alpha = map(k, 0, 4, 25, 2);  // Gradually fade out opacity (inner layer → outer)
+
+        this.pg.fill(
+          red(colorToUse),
+          green(colorToUse),
+          blue(colorToUse),
+          alpha
+        );
         this.pg.noStroke();
-        this.pg.ellipse(this.x + offsetX, this.y + offsetY, s);
+        this.pg.ellipse(this.x + offsetX, this.y + offsetY, d);
       }
-      this.inkDrops.push({
-        offsetX: offsetX,
-        offsetY: offsetY,
-        r: s / 2,          // Radius of the ink drop
-        alpha: 40,
-        color: colorToUse  // Ink color from preset palette or random
-      });
     }
   }
 }
