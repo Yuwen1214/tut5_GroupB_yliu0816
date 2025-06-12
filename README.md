@@ -108,7 +108,7 @@ My design attempts to capture the fusion of "stillness" and "movement" - the reg
 
 - Implemented interactive color switching using the number keys 1/2/3/0, based on a traditional Chinese color palette  
 
-- Enhanced ink drop simulation with **multi-layer blurred circles** to mimic natural ink diffusion more realistically
+- Enhance ink drop simulation by layering multiple semi-transparent ellipses of increasing size and decreasing opacity to simulate natural ink spread and blurred edges
 
 These changes significantly improve both the interactivity and the aesthetic expression of the visual system.
  
